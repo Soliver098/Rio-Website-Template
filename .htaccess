@@ -1,0 +1,56 @@
+Options -MultiViews
+
+<IfModule mod_headers.c>
+    Header append Cache-Control "public"
+</IfModule>
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault                         "access plus 1 month"
+    ExpiresByType image/jpg                "access plus 1 year"
+    ExpiresByType image/jpeg               "access plus 1 year"
+    ExpiresByType image/gif                "access plus 1 year"
+    ExpiresByType image/png                "access plus 1 year"
+    ExpiresByType image/bmp                "access plus 1 year"
+    ExpiresByType image/webp               "access plus 1 year"
+    ExpiresByType video/ogg                "access plus 1 year"
+    ExpiresByType audio/ogg                "access plus 1 year"
+    ExpiresByType video/mp4                "access plus 1 year"
+    ExpiresByType video/webm               "access plus 1 year"
+    ExpiresByType image/x-icon             "access plus 1 week"
+    ExpiresByType image/vnd.microsoft.icon "access plus 1 week"
+    ExpiresByType image/svg+xml            "access plus 1 month"
+    ExpiresByType application/vnd.ms-fontobject "access plus 3 months"
+    ExpiresByType font/eot                 "access plus 3 months"
+    ExpiresByType font/opentype            "access plus 3 months"
+    ExpiresByType font/truetype            "access plus 3 months"
+    ExpiresByType application/x-font-ttf   "access plus 3 months"
+    ExpiresByType application/font-woff    "access plus 3 months"
+    ExpiresByType application/x-font-woff  "access plus 3 months"
+    ExpiresByType font/woff                "access plus 3 months"
+    ExpiresByType application/font-woff2   "access plus 3 months"
+    ExpiresByType text/html                "access plus 1 day"
+    ExpiresByType text/css                 "access plus 1 week"
+    ExpiresByType text/javascript          "access plus 1 month"
+    ExpiresByType text/x-javascript        "access plus 1 month"
+    ExpiresByType application/x-javascript "access plus 1 month"
+    ExpiresByType application/javascript   "access plus 1 month"
+    ExpiresByType application/pdf          "access plus 4 months"
+    ExpiresByType application/x-shockwave-flash "access plus 1 month"
+    ExpiresByType text/xml                 "access plus 0 seconds"
+    ExpiresByType application/xml          "access plus 0 seconds"
+    ExpiresByType application/json         "access plus 0 seconds"
+    ExpiresByType application/ld+json      "access plus 0 seconds"
+    ExpiresByType application/schema+json  "access plus 0 seconds"
+    ExpiresByType application/vnd.geo+json "access plus 0 seconds"
+    ExpiresByType application/rss+xml      "access plus 1 hour"
+    ExpiresByType application/rdf+xml      "access plus 1 hour"
+    ExpiresByType application/atom+xml     "access plus 1 hour"
+</IfModule>
+
+ErrorDocument 404 /sub/404.php
+
+RewriteEngine on
+
+#Rules for Versioned Static Files
+RewriteRule ^(js|css)/(.+)\.(.+)\.(js|css)$ $1/$2.$4 [L]
