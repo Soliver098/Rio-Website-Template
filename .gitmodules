@@ -1,0 +1,12 @@
+[submodule "Submodules/RioWebsite"]
+	path = Submodules/RioWebsite
+	url = git@github.com:Soliver098/Rio-Website.git
+[submodule "Submodules/RioStyle"]
+	path = Submodules/RioStyle
+	url = git@github.com:Soliver098/Rio-Style.git
+[submodule "Submodules/RioMonitorAPI"]
+	path = Submodules/RioMonitorAPI
+	url = git@github.com:Soliver098/Rio-Monitor-API.git
+[submodule "Submodules/RioTranslationAPI"]
+	path = Submodules/RioTranslationAPI
+	url = git@github.com:Soliver098/Rio-Translation-API.git
