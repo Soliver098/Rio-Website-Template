@@ -21,11 +21,11 @@ included `.htaccess` handles asset cache headers and the 404 document out of the
 
 ## Dependencies
 
-- [`RioWebsite`](submodules/RioWebsite) — shared base site class (site URL helpers, asset
+- [`RioWebsite`](submodules/rio-website) — shared base site class (site URL helpers, asset
   cache-busting, reCAPTCHA validation)
-- [`RioStyle`](submodules/RioStyle) — CSS utility framework used for layout and styling
-- [`RioMonitorAPI`](submodules/RioMonitorAPI) — monitoring/observability integration
-- [`RioTranslationAPI`](submodules/RioTranslationAPI) — translation lookups
+- [`RioStyle`](submodules/rio-style) — CSS utility framework used for layout and styling
+- [`RioMonitorSDK`](submodules/rio-monitor-sdk) — monitoring/observability integration
+- [`RioTranslationSDK`](submodules/rio-translation-sdk) — translation lookups
 
 ## Development
 
