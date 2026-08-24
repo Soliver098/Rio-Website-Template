@@ -9,6 +9,10 @@ convention — check `CHANGELOG.md` for prior decisions on the area you're touch
 chronological; if two entries disagree about the same thing, the most recent entry is
 authoritative, not the earlier one.
 
+## Local development
+
+- Port: `4028`
+- URL: `https://rio-website-template.localhost.rio-ecosystem.nl`
 ## What this repo is
 
 `rio-website-template` is a **scaffold**, not a live website: the starting point that new plain-PHP
@@ -35,11 +39,13 @@ No build step. Point Apache (or `php -S`) at the repo root; `.htaccess` needs `m
 `mod_rewrite`. E.g.:
 
 ```bash
-php -S localhost:8000
+php -S 0.0.0.0:4028
 ```
 
-(PHP's built-in server ignores `.htaccess`, so cache headers / the versioned-asset rewrite /
-`ErrorDocument 404` won't apply under it — use real Apache if you need to verify those.)
+Reachable at `https://rio-website-template.localhost.rio-ecosystem.nl` via the central Caddy
+reverse proxy (see "Local development" above). PHP's built-in server ignores `.htaccess`, so
+cache headers / the versioned-asset rewrite / `ErrorDocument 404` won't apply under it — use real
+Apache if you need to verify those.
 
 ## Submodule dependencies (`submodules/`)
 
