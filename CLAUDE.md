@@ -16,7 +16,11 @@ authoritative, not the earlier one.
 ## What this repo is
 
 `rio-website-template` is a **scaffold**, not a live website: the starting point that new plain-PHP
-Rio Ecosystem websites are cloned from. It is not itself deployed. It ships the folder layout,
+Rio Ecosystem websites are cloned from. It is not itself deployed today — no `development`/
+`production` Plesk vhost currently exists for it (unlike `rio-web-app-template`, which plays a
+similar template role but also has its own live demo vhost). `deploy/post-deploy.sh` exists ahead
+of any such vhost, for consistency with the rest of the ecosystem's submodule-deploy fix (see
+"Deploy" below) — it is currently unusable and untested. It ships the folder layout,
 vendored front-end plugins, an `.htaccess` with cache headers and versioned-asset rewriting, and
 the git submodule wiring for shared Rio site dependencies — but the actual entry-point files are
 intentionally empty:
@@ -46,6 +50,14 @@ Reachable at `https://rio-website-template.localhost.rio-ecosystem.nl` via the c
 reverse proxy (see "Local development" above). PHP's built-in server ignores `.htaccess`, so
 cache headers / the versioned-asset rewrite / `ErrorDocument 404` won't apply under it — use real
 Apache if you need to verify those.
+
+## Deploy
+
+Not itself deployed today — see "What this repo is" above. `deploy/post-deploy.sh` is written
+ahead of any future `development`/`production` Plesk vhost, following the same
+submodule-repopulation pattern used across every `rio-*-server` repo (Plesk's git "pull" deploy is
+a file-copy-style deploy that leaves every `submodules/<name>/` directory empty). Do not run it
+until such a vhost actually exists; see the script's own header comment.
 
 ## Submodule dependencies (`submodules/`)
 
@@ -95,3 +107,23 @@ committed at the pinned commit.
 `jQuery-UI-touch-punch` (touch support for jQuery UI drag/sort). These are committed vendor copies,
 not package-manager-installed — bump the versioned subfolder name if upgrading, don't edit in
 place.
+
+## Releases
+
+This repo follows the Rio Ecosystem release convention (see
+`rio-ecosystem-architecture/docs/versioning.md` and
+`rio-ecosystem-architecture/scripts/release.sh`). For Claude Code, hard rules apply here:
+
+- Releases run exclusively through
+  `rio-ecosystem-architecture/scripts/release.sh <repo> <major|minor|patch>`. Never run `git tag`
+  by hand as a substitute for that script. Never run `gh release create` by hand as a substitute
+  for that script.
+- GitHub actions for releases go through the GitHub CLI (`gh`); a GitHub Release's tag must always
+  equal the semver version (`vX.Y.Z`).
+- Release notes come from `CHANGELOG.md`, never from a separate `RELEASE_NOTES` file.
+- A version `< 1.0.0` is not a reason to mark a GitHub Release as a `prerelease`.
+- An already-pushed tag is never deleted automatically, even if only creating the GitHub Release
+  fails — recover with
+  `rio-ecosystem-architecture/scripts/publish-github-release.sh <repo> vX.Y.Z`.
+- Read-only inspection (`gh release list`, `gh release view`, `git tag -l`, `git describe --tags`)
+  is always fine to use freely.
