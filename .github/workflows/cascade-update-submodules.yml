@@ -1,0 +1,38 @@
+name: Update Submodules on Upstream Production Change
+
+on:
+  repository_dispatch:
+    types: [submodule-updated]
+
+concurrency:
+  group: cascade-update-development
+  cancel-in-progress: false
+
+jobs:
+  update-submodules:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: development
+          submodules: recursive
+          token: ${{ secrets.RIO_SUBMODULE_BOT_PAT }}
+
+      - name: Configure Git
+        run: |
+          git config user.name "Rio Submodule Bot"
+          git config user.email "rio-submodule-bot@users.noreply.github.com"
+
+      - name: Update submodules to latest production
+        run: git submodule update --remote --checkout --recursive
+
+      - name: Commit and push if changed
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git add .
+            git commit -m "Bump submodules (triggered by ${{ github.event.client_payload.repo }})"
+            git pull --rebase origin development
+            git push origin development
+          else
+            echo "No submodule changes to commit"
+          fi
